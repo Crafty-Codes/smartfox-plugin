@@ -33,9 +33,9 @@ class PlaceholderHub:
         """Initialize."""
         self.host = host
 
-    async def authenticate(self, username: str, password: str) -> bool:
-        """Test if we can authenticate with the host."""
-        return True
+    # async def authenticate(self, username: str, password: str) -> bool:
+    #     """Test if we can authenticate with the host."""
+    #     return True
 
 
 async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
@@ -53,7 +53,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
 
     hub = data["host"]
 
-    if hub[-4:] == ".xml":
+    if hub[-4:] != ".xml":
         raise InvalidAuth
 
 
@@ -66,7 +66,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     # InvalidAuth
 
     # Return info that you want to store in the config entry.
-    return {"host": hub}
+    return {"host": hub, "title": DOMAIN}
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
