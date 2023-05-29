@@ -1,0 +1,6 @@
+{
+    "name": "Smartfox reader",
+    "content_in_root": false,
+    "render_readme": true,
+    "homeassistant": "2023.2.0"
+  }
