@@ -15,5 +15,11 @@ SENSORS = [
         key="toGridValue",
         native_unit_of_measurement=UnitOfPower.KILO_WATT,
         change=lambda value : float(value[:-3])
-    )
+    ),
+    SmartfoxData(
+        name="Production",
+        key="hidProduction",
+        native_unit_of_measurement=UnitOfPower.KILO_WATT,
+        change=lambda value : float(value[:-3])
+    ),
 ]
