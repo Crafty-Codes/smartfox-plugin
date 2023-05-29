@@ -14,10 +14,10 @@ class SmartfoxApi:
         try:
             response = await self._hass.async_add_executor_job(requests.get, self._host)
             xml = ET.fromstring(response.text)
-
+            print("before")
             for value in xml:
                 valueId = value.attrib["id"]
                 data[valueId] = value.text
-
+            print("data", data)
         except Exception as e:
             return None

@@ -1,7 +1,7 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import Entity
-
+import asyncio
 from .const import (
     DOMAIN,
     NAME,
@@ -75,6 +75,7 @@ class SmartfoxSensor(Entity):
     async def async_update(self) -> None:
         """Update all sensors."""
         try:
+            print("Now update")
             await self._hub.async_getData()
         except Exception as e:
             pass
