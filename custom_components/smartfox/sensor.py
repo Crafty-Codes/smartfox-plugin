@@ -53,10 +53,10 @@ class SmartfoxSensor(Entity):
         return self._available
 
     @property
-    def state(self) -> str | None:
+    def state(self) | None:
         if self._key in self._hub.data:
-            if self._remove:
-                return self._remove(self._hub.data[self._key])
+            if self._change:
+                return self._change(self._hub.data[self._key])
             return self._hub.data[self._key]
 
     @property
