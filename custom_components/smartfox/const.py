@@ -14,9 +14,6 @@ SENSORS = [
         name="To Grid",
         key="toGridValue",
         native_unit_of_measurement=UnitOfPower.KILO_WATT,
-        change=changerToGrid
+        change=lambda value : float(value[:-3])
     )
 ]
-
-def changerToGrid(value: str):
-    return float(value[:-3])
