@@ -55,8 +55,9 @@ class SmartfoxSensor(Entity):
     @property
     def state(self) -> str | None:
         if self._key in self._hub.data:
-            return "on"
-        return "off"
+            if self._remove:
+                return self._remove(self._hub.data[self._key])
+            return self._hub.data[self._key]
 
     @property
     def native_unit_of_measurement(self):
