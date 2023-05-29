@@ -10,11 +10,15 @@ from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.exceptions import HomeAssistantError
 
-from .const import CONF_HOST
+from .const import (
+    DOMAIN,
+    CONF_HOST,
+    DEFAULT_HOST
+)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_HOST): str,
+        vol.Required(CONF_HOST, default=DEFAULT_HOST): str,
     }
 )
 
