@@ -70,8 +70,8 @@ class SmartfoxSensor(SensorEntity):
     def native_value(self):
         """Return the state of the sensor."""
         if self._key in self._hub.data:
-            if self._remove:
-                return self._remove(self._hub.data[self._key])
+            if self._change:
+                return self._change(self._hub.data[self._key])
             return self._hub.data[self._key]
 
     async def async_update(self) -> None:
