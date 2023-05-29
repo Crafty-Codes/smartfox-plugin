@@ -1,6 +1,7 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import Entity
+from homeassistant.components.sensor import SensorEntity
 import asyncio
 from .const import (
     DOMAIN,
@@ -25,7 +26,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_d
     return True
 
 
-class SmartfoxSensor(Entity):
+class SmartfoxSensor(SensorEntity):
     """Representation of a Smartfox sensor."""
     def __init__(self, api : SmartfoxApi, config_entry, sensor_data : SmartfoxData):
         super().__init__()
