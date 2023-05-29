@@ -9,7 +9,7 @@ class SmartfoxApi:
 
     async def async_getData(self) -> str | None:
         try:
-            response = await requests.get(self._host)
+            response = requests.get(self._host)
             xml = ET.fromstring(response.text)
 
             for value in xml:
