@@ -6,6 +6,6 @@
   "domain": "smartfox",
   "iot_class": "local_polling",
   "name": "smartfox",
-  "requirements": ["requests"],
+  "requirements": ["requests==2.30.0"],
   "version": "0.0.1"
 }
