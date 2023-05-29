@@ -35,7 +35,7 @@ class SmartfoxSensor(Entity):
         self._key = sensor_data.key
         self._unit_of_measurement = sensor_data.native_unit_of_measurement
         self._change = sensor_data.change
-        self._available = True#
+        self._available = True
 
     @property
     def name(self) -> str:
@@ -47,27 +47,27 @@ class SmartfoxSensor(Entity):
         """Return the unique ID of the sensor."""
         return f"{self._device_name}_{self._name}"
 
-    @property
-    def available(self) -> bool:
-        """Return True if entity is available."""
-        return self._available
+    # @property
+    # def available(self) -> bool:
+    #     """Return True if entity is available."""
+    #     return self._available
 
-    @property
-    def state(self) | None:
-        if self._key in self._hub.data:
-            if self._change:
-                return self._change(self._hub.data[self._key])
-            return self._hub.data[self._key]
+    # @property
+    # def state(self):
+    #     if self._key in self._hub.data:
+    #         if self._change:
+    #             return self._change(self._hub.data[self._key])
+    #         return self._hub.data[self._key]
 
     @property
     def native_unit_of_measurement(self):
         """Return the unit of measurement"""
+        print("unit of power")
         return self._unit_of_measurement
 
     @property
     def native_value(self):
         """Return the state of the sensor."""
-        print("asdfasdfasdfasdfasdf")
         if self._key in self._hub.data:
             if self._remove:
                 return self._remove(self._hub.data[self._key])
@@ -76,7 +76,6 @@ class SmartfoxSensor(Entity):
     async def async_update(self) -> None:
         """Update all sensors."""
         try:
-            print("Now update")
             await self._hub.async_getData()
         except Exception as e:
             pass
