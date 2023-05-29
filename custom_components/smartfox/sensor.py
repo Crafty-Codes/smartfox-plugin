@@ -1,19 +1,21 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import Entity
 
 from .const import (
+    DOMAIN,
     NAME,
-    SENSORS
+    SENSORS,
+    CONF_HOST
 )
 
 from .data import SmartfoxData
 from .api import SmartfoxApi
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_devices):
-    hub = hass.data[DOMAIN][entry.entry_id]
     sensors = []
-
-    sensors.append(SmartfoxSensor(SmartfoxApi(entry.data[CONF_HOST]), entry, SENSORS[0]))
+    for i in range(len(SENSORS)):
+        sensors.append(SmartfoxSensor(SmartfoxApi(entry.data[CONF_HOST]), entry, SENSORS[i]))
 
     async_add_devices(sensors)
 
@@ -47,12 +49,11 @@ class SmartfoxSensor(Entity):
         """Return True if entity is available."""
         return self._available
 
-    # @property
-    # def state(self) -> str | None:
-    #     return self._state
-    # @property
-    # def extra_state_attributes(self) -> dict[str, Any]:
-    #     return self.attrs
+    @property
+    def state(self) -> str | None:
+        if self._key in self._hub.data:
+            return "on"
+        return "off"
 
     @property
     def native_unit_of_measurement(self):
@@ -71,6 +72,6 @@ class SmartfoxSensor(Entity):
     async def async_update(self) -> None:
         """Update all sensors."""
         try:
-            self._hub.async_getData()
+            await self._hub.async_getData()
         except Exception as e:
             pass
