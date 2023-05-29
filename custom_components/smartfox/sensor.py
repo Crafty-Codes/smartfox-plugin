@@ -14,8 +14,12 @@ from .api import SmartfoxApi
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_devices):
     sensors = []
+
+    api = SmartfoxApi(entry.data[CONF_HOST])
+    await api.async_getData()
+    
     for i in range(len(SENSORS)):
-        sensors.append(SmartfoxSensor(SmartfoxApi(entry.data[CONF_HOST]), entry, SENSORS[i]))
+        sensors.append(SmartfoxSensor(api, entry, SENSORS[i]))
 
     async_add_devices(sensors)
 
